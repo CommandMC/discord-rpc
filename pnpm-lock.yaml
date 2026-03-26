@@ -8,17 +8,17 @@ importers:
     .:
         dependencies:
             "@discordjs/rest":
-                specifier: ^2.6.0
-                version: 2.6.0
+                specifier: ^2.6.1
+                version: 2.6.1
             "@vladfrangu/async_event_emitter":
                 specifier: ^2.4.7
                 version: 2.4.7
             discord-api-types:
-                specifier: ^0.38.40
-                version: 0.38.40
+                specifier: ^0.38.42
+                version: 0.38.42
             ws:
-                specifier: ^8.19.0
-                version: 8.19.0
+                specifier: ^8.20.0
+                version: 8.20.0
         devDependencies:
             "@sapphire/ts-config":
                 specifier: ^5.0.3
@@ -33,8 +33,8 @@ importers:
                 specifier: ^6.1.3
                 version: 6.1.3
             typescript:
-                specifier: ^5.9.3
-                version: 5.9.3
+                specifier: ^6.0.2
+                version: 6.0.2
 
 packages:
     "@discordjs/collection@2.1.1":
@@ -44,10 +44,10 @@ packages:
             }
         engines: { node: ">=18" }
 
-    "@discordjs/rest@2.6.0":
+    "@discordjs/rest@2.6.1":
         resolution:
             {
-                integrity: sha512-RDYrhmpB7mTvmCKcpj+pc5k7POKszS4E2O9TYc+U+Y4iaCP+r910QdO43qmpOja8LRr1RJ0b3U+CqVsnPqzf4w==
+                integrity: sha512-wwQdgjeaoYFiaG+atbqx6aJDpqW7JHAo0HrQkBTbYzM3/PJ3GweQIpgElNcGZ26DCUOXMyawYd0YF7vtr+fZXg==
             }
         engines: { node: ">=18" }
 
@@ -112,10 +112,10 @@ packages:
             }
         engines: { node: 18 || 20 || >=22 }
 
-    discord-api-types@0.38.40:
+    discord-api-types@0.38.42:
         resolution:
             {
-                integrity: sha512-P/His8cotqZgQqrt+hzrocp9L8RhQQz1GkrCnC9TMJ8Uw2q0tg8YyqJyGULxhXn/8kxHETN4IppmOv+P2m82lQ==
+                integrity: sha512-qs1kya7S84r5RR8m9kgttywGrmmoHaRifU1askAoi+wkoSefLpZP6aGXusjNw5b0jD3zOg3LTwUa3Tf2iHIceQ==
             }
 
     glob@13.0.6:
@@ -187,10 +187,10 @@ packages:
         engines: { node: ">=14.17" }
         hasBin: true
 
-    typescript@5.9.3:
+    typescript@6.0.2:
         resolution:
             {
-                integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
+                integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==
             }
         engines: { node: ">=14.17" }
         hasBin: true
@@ -201,17 +201,17 @@ packages:
                 integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==
             }
 
-    undici@6.21.3:
+    undici@6.24.1:
         resolution:
             {
-                integrity: sha512-gBLkYIlEnSp8pFbT64yFgGE6UIB9tAkhukC23PmMDCe5Nd+cRqKxSjw5y54MK2AZMgZfJWMaNE4nYUHgi1XEOw==
+                integrity: sha512-sC+b0tB1whOCzbtlx20fx3WgCXwkW627p4EA9uM+/tNNPkSS+eSEld6pAs9nDv7WbY1UUljBMYPtu9BCOrCWKA==
             }
         engines: { node: ">=18.17" }
 
-    ws@8.19.0:
+    ws@8.20.0:
         resolution:
             {
-                integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==
+                integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==
             }
         engines: { node: ">=10.0.0" }
         peerDependencies:
@@ -226,21 +226,21 @@ packages:
 snapshots:
     "@discordjs/collection@2.1.1": {}
 
-    "@discordjs/rest@2.6.0":
+    "@discordjs/rest@2.6.1":
         dependencies:
             "@discordjs/collection": 2.1.1
             "@discordjs/util": 1.2.0
             "@sapphire/async-queue": 1.5.5
             "@sapphire/snowflake": 3.5.5
             "@vladfrangu/async_event_emitter": 2.4.7
-            discord-api-types: 0.38.40
+            discord-api-types: 0.38.42
             magic-bytes.js: 1.13.0
             tslib: 2.8.1
-            undici: 6.21.3
+            undici: 6.24.1
 
     "@discordjs/util@1.2.0":
         dependencies:
-            discord-api-types: 0.38.40
+            discord-api-types: 0.38.42
 
     "@sapphire/async-queue@1.5.5": {}
 
@@ -267,7 +267,7 @@ snapshots:
         dependencies:
             balanced-match: 4.0.4
 
-    discord-api-types@0.38.40: {}
+    discord-api-types@0.38.42: {}
 
     glob@13.0.6:
         dependencies:
@@ -301,10 +301,10 @@ snapshots:
 
     typescript@5.4.5: {}
 
-    typescript@5.9.3: {}
+    typescript@6.0.2: {}
 
     undici-types@6.21.0: {}
 
-    undici@6.21.3: {}
+    undici@6.24.1: {}
 
-    ws@8.19.0: {}
+    ws@8.20.0: {}

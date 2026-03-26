@@ -50,6 +50,13 @@ const defaultPathList: PathData[] = [
             // flatpak
             return path.join(getTempDir(), "app", "com.discordapp.Discord", `discord-ipc-${id}`);
         }
+    },
+    {
+        platform: [],
+        format: (id: number): string => {
+            // Super fallback, if thing don't work, well let just use this
+            return path.join(getTempDir(), `discord-ipc-${id}`);
+        }
     }
 ];
 
@@ -97,7 +104,7 @@ export class IPCTransport extends Transport {
             const useablePath: (string | [number, string])[] = [];
 
             for (const pat of pathList) {
-                if (!pat.platform.includes(process.platform)) continue;
+                if (process.platform.length <= 0 || !pat.platform.includes(process.platform)) continue;
 
                 let pipeIdList = [];
 
