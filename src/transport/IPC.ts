@@ -31,9 +31,9 @@ const defaultPathList: PathData[] = [
         format: (id: number): string => `\\\\?\\pipe\\discord-ipc-${id}`
     },
     {
-        platform: ["darwin", "linux"],
+        platform: ["darwin", "linux", "freebsd", "openbsd", "netbsd"],
         format: (id: number): string => {
-            // macOS / Linux path
+            // macOS / Linux / FreeBSD / OpenBSD / NetBSD path
             return path.join(getTempDir(), `discord-ipc-${id}`);
         }
     },
@@ -53,7 +53,7 @@ const defaultPathList: PathData[] = [
     }
 ];
 
-const createSocket = async (path: string | [number,string]): Promise<net.Socket> => {
+const createSocket = async (path: string | [number, string]): Promise<net.Socket> => {
     return new Promise((resolve, reject) => {
         const onError = () => {
             socket.removeListener("connect", onConnect);
@@ -94,7 +94,7 @@ export class IPCTransport extends Transport {
         const pipeId = this.client.pipeId;
 
         return new Promise(async (resolve, reject) => {
-            const useablePath: (string | [number,string])[] = [];
+            const useablePath: (string | [number, string])[] = [];
 
             for (const pat of pathList) {
                 if (!pat.platform.includes(process.platform)) continue;
@@ -110,7 +110,12 @@ export class IPCTransport extends Transport {
                 } else {
                     for (const pipeId of pipeIdList) {
                         const socketPath = pat.format(pipeId);
-                        if (process.platform !== "win32" && typeof socketPath === 'string' && !fs.existsSync(socketPath)) continue;
+                        if (
+                            process.platform !== "win32" &&
+                            typeof socketPath === "string" &&
+                            !fs.existsSync(socketPath)
+                        )
+                            continue;
                         useablePath.push(socketPath);
                     }
                 }
@@ -118,7 +123,7 @@ export class IPCTransport extends Transport {
 
             this.client.emit(
                 "debug",
-                `CLIENT | Found ${useablePath.length} Discord client path;\n${useablePath.map(x => Array.isArray(x) ? `${x[1]}:${x[0]}` : x).join("\n")}`
+                `CLIENT | Found ${useablePath.length} Discord client path;\n${useablePath.map((x) => (Array.isArray(x) ? `${x[1]}:${x[0]}` : x)).join("\n")}`
             );
 
             if (useablePath.length < 0)
