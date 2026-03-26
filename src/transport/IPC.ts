@@ -104,7 +104,7 @@ export class IPCTransport extends Transport {
             const useablePath: (string | [number, string])[] = [];
 
             for (const pat of pathList) {
-                if (process.platform.length <= 0 || !pat.platform.includes(process.platform)) continue;
+                if (pat.platform.length <= 0 || !pat.platform.includes(process.platform)) continue;
 
                 let pipeIdList = [];
 
