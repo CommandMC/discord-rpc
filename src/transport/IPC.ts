@@ -83,6 +83,11 @@ const createSocket = async (path: string | [number, string]): Promise<net.Socket
 export class IPCTransport extends Transport {
     public pathList: PathData[];
     private socket?: net.Socket;
+    private tmpData: {
+        op: number;
+        length: number;
+        data: Buffer<ArrayBuffer>;
+    } | null;
 
     public override get isConnected() {
         return this.socket !== undefined && this.socket.readyState === "open";
@@ -92,6 +97,7 @@ export class IPCTransport extends Transport {
         super(options);
 
         this.pathList = options.pathList ?? defaultPathList;
+        this.tmpData = null;
     }
 
     private async getSocket(): Promise<net.Socket> {
@@ -161,7 +167,7 @@ export class IPCTransport extends Transport {
         );
 
         this.socket.on("readable", () => {
-            let data = Buffer.alloc(0);
+            let data = this.tmpData != null ? this.tmpData.data : Buffer.alloc(0);
 
             do {
                 if (!this.isConnected) break;
@@ -187,14 +193,21 @@ export class IPCTransport extends Transport {
                 return;
             }
 
-            const op = data.readUInt32LE(0);
-            const length = data.readUInt32LE(4);
+            const op = this.tmpData != null ? this.tmpData.op : data.readUInt32LE(0);
+            const length = this.tmpData != null ? this.tmpData.length : data.readUInt32LE(4);
 
             if (data.length !== length + 8) {
                 // TODO : Handle error
                 this.client.emit("debug", "SERVER => CLIENT | Malformed packet, invalid payload");
+                this.tmpData = {
+                    op: op,
+                    length: length,
+                    data: data
+                };
                 return;
             }
+
+            this.tmpData = null;
 
             let parsedData: any;
             try {
