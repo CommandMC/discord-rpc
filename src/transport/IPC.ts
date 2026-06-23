@@ -193,12 +193,29 @@ export class IPCTransport extends Transport {
                 return;
             }
 
-            const op = this.tmpData != null ? this.tmpData.op : data.readUInt32LE(0);
-            const length = this.tmpData != null ? this.tmpData.length : data.readUInt32LE(4);
+            const [op, length] =
+                this.tmpData != null
+                    ? [this.tmpData.op, this.tmpData.length]
+                    : [data.readUInt32LE(0), data.readUInt32LE(4)];
+
+            if (data.length > length + 8) {
+                this.client.emit(
+                    "debug",
+                    `SERVER => CLIENT | Malformed packet: expected ${length + 8} bytes, found ${data.length} instead`
+                );
+                this.tmpData = null;
+                return;
+            }
 
             if (data.length !== length + 8) {
-                // TODO : Handle error
-                this.client.emit("debug", "SERVER => CLIENT | Malformed packet, invalid payload");
+                if (data.length % 8192 != 0) {
+                    this.client.emit(
+                        "debug",
+                        `SERVER => CLIENT | Malformed packet: expected 8192 bytes, found ${data.length} instead`
+                    );
+                    this.tmpData = null;
+                    return;
+                }
                 this.tmpData = {
                     op: op,
                     length: length,
