@@ -30,8 +30,7 @@
     "dependencies": {
         "@discordjs/rest": "^2.6.1",
         "@vladfrangu/async_event_emitter": "^2.4.7",
-        "discord-api-types": "^0.38.42",
-        "ws": "^8.20.0"
+        "discord-api-types": "^0.38.42"
     },
     "devDependencies": {
         "@sapphire/ts-config": "^5.0.3",

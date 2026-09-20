@@ -1,7 +1,6 @@
 import { Routes, type APIApplication, type OAuth2Scopes } from "discord-api-types/v10";
 import { AsyncEventEmitter } from "@vladfrangu/async_event_emitter";
 import { IPCTransport, type PathData } from "./transport/IPC";
-import { WebSocketTransport } from "./transport/WebSocket";
 import { ClientUser } from "./structures/ClientUser";
 import { RPCError } from "./utils/RPCError";
 import { REST } from "@discordjs/rest";
@@ -45,7 +44,7 @@ export interface ClientOptions {
         /**
          * transport type
          */
-        type?: "ipc" | "websocket" | { new (options: TransportOptions): Transport };
+        type?: "ipc" | { new (options: TransportOptions): Transport };
         /**
          * ipc transport's path list
          */
@@ -140,7 +139,7 @@ export class Client extends AsyncEventEmitter<ClientEvents> {
                       client: this,
                       pathList: options.transport?.pathList
                   })
-                : new (options.transport.type === "websocket" ? WebSocketTransport : options.transport.type)({
+                : new options.transport.type({
                       client: this
                   });
 
