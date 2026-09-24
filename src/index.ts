@@ -10,4 +10,3 @@ export * from "./structures/Transport";
 export * from "./structures/Message";
 
 export * as IPC from "./transport/IPC";
-export * as WebSocket from "./transport/WebSocket";
